@@ -1,26 +1,15 @@
-<<<<<<< HEAD
 import "./App.css";
-=======
 
->>>>>>> 0acaa2cd95996365f59ff3c85851dd41705d77d5
 import Footer from "./components/CommanComponents/Footer";
 import Navbar from "./components/CommanComponents/Navbar";
 import AllDoctors from "./pages/AllDoctors";
 // import BookAppointment from './pages/BookAppointment';
-<<<<<<< HEAD
 import Home from "./pages/Home";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
-=======
-import Home from './pages/Home';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import LogIn from './pages/LogIn';
-import SignUp from './pages/SignUp';
-import Profile from './pages/Profile';
->>>>>>> 0acaa2cd95996365f59ff3c85851dd41705d77d5
 import DoctorProfile from "./components/DoctorDashboardLinks/DoctorProfile";
 import BedOccupancy from "./components/CommanComponents/BedChecking";
 import BedDetails from "./components/CommanComponents/BedDetails";
@@ -36,23 +25,16 @@ import GoogleTranslate from "./components/GoogleTranslate/GoogleTranslate";
 
 import ForgetPassword from "./components/CommanComponents/forgetPassword";
 import ResetPassword from "./components/CommanComponents/resetPassword";
-<<<<<<< HEAD
-import LanguageSelector from "./components/GoogleTranslate/languageSelector";
 import RoomPage from "./pages/VideoRoom";
 import LobbyScreen from "./pages/VideoCallLobby";
 import { ActiveSectionProvider } from "./context/ActiveSectionContext";
 import { jwtDecode } from "jwt-decode";
-=======
 import LanguageSelector from './components/GoogleTranslate/languageSelector';
-import RoomPage from './pages/VideoRoom';
-import LobbyScreen from './pages/VideoCallLobby';
-import { ActiveSectionProvider } from './context/ActiveSectionContext';
 import SidePannelChatBot from './components/CommanComponents/SidePannelChatBot';
 import { SidePanelProvider } from './context/sidePannelContext';
 
 
 
->>>>>>> 0acaa2cd95996365f59ff3c85851dd41705d77d5
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -88,13 +70,6 @@ function App() {
     <div className="">
       <Toaster />
       <GoogleTranslate />
-<<<<<<< HEAD
-      <ActiveSectionProvider>
-        <Navbar />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/all-doctors" element={<AllDoctors />} />
-=======
       <SidePanelProvider>
 <ActiveSectionProvider>
         <Navbar />
@@ -102,7 +77,6 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/all-doctors" element={<AllDoctors />} />
->>>>>>> 0acaa2cd95996365f59ff3c85851dd41705d77d5
 
           {/* <Route path="/book-appointment" element={<BookAppointment />} /> */}
           <Route path="/SignUp" element={<SignUp />} />

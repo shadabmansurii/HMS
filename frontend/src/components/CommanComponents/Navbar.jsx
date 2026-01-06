@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+// import UserProfile from "./UserProfile";
+
 import { Link, useNavigate } from "react-router-dom";
 import { FaGripLines, FaTimes } from "react-icons/fa";
 import { TbHealthRecognition } from "react-icons/tb";
@@ -27,10 +29,7 @@ const Navbar = () => {
     patient: [
       { title: "Home", url: "/", icon: <AiOutlineHome /> },
       { title: "Find Doctors", url: "/all-doctors", icon: <FaStethoscope /> },
-<<<<<<< HEAD
 
-=======
->>>>>>> 0acaa2cd95996365f59ff3c85851dd41705d77d5
       {
         title: "Dashboard",
         url: "/patient-dashboard",

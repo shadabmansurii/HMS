@@ -35,6 +35,5 @@
    ```sh
    git clone https://github.com/shadabmansurii/HMS.git
    cd HMS
-=======
 # HMS
 >>>>>>> c25584a7c97ea30486cf56f40b8e9bc6737986ce
