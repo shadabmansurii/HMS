@@ -1,28 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { jwtDecode } from "jwt-decode"; // ✅ named import
 
-// Load persisted state from localStorage
-const persistedState = JSON.parse(localStorage.getItem("auth")) || {
-  isLoggedIn: false,
+const getInitialState = () => {
+  const persisted = JSON.parse(localStorage.getItem("auth")) || {
+    isLoggedIn: false,
+  };
+  const token = localStorage.getItem("token");
+
+  // If token exists, check if it is expired
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded.exp * 1000 < Date.now()) {
+        // Token expired, clear storage
+        localStorage.clear();
+        return { isLoggedIn: false };
+      }
+      // Token valid
+      return { isLoggedIn: true };
+    } catch (err) {
+      // Invalid token
+      localStorage.clear();
+      return { isLoggedIn: false };
+    }
+  }
+
+  return persisted;
 };
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: persistedState,
+  initialState: getInitialState(),
   reducers: {
     login: (state) => {
       state.isLoggedIn = true;
-      // Save the updated state to localStorage
       localStorage.setItem("auth", JSON.stringify(state));
     },
     logout: (state) => {
       state.isLoggedIn = false;
-      // Clear auth and user-related data from localStorage
       localStorage.removeItem("auth");
       localStorage.removeItem("token");
       localStorage.removeItem("userId");
       localStorage.removeItem("role");
     },
-    // No role management here, so no need for `changeRole` reducer
   },
 });
 

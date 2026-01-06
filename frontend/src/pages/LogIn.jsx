@@ -30,57 +30,51 @@ const handleSubmit = async (e) => {
   setIsLoading(true);
 
   try {
-    const response = await axios.post(`http://localhost:1000/api/v1/sign-in`, {
+    const response = await axios.post("http://localhost:1000/api/v1/sign-in", {
       usernameOremail,
       password,
     });
 
-    const { token, role, id } = response.data;
+    const { token, role, id, username } = response.data;
 
-    if (response.status === 200) {
-   
-      dispatch(authActions.login());
-      localStorage.setItem("token", token);
-      localStorage.setItem("role", role);
-      localStorage.setItem("userId", id);
+    // Save token and user info in localStorage
+    localStorage.setItem("token", token);
+    localStorage.setItem("role", role);
+    localStorage.setItem("userId", id);
+    localStorage.setItem("username", username);
 
-    
+    // Update Redux
+    dispatch(authActions.login());
 
+    toast.success("Login successful");
 
-   
-      switch (role) {
-        case "admin":
-          navigate("/admin-dashboard");
-          break;
-        case "doctor":
-          navigate("/doctor-dashboard");
-          break;
-        case "receptionist":
-          navigate("/receptionist-dashboard");
-          break;
-        case "patient":
-          navigate("/patient-dashboard");
-          break;
-        default:
-          console.error("Unknown role:", role);
-      }
-
-      toast.success("Login successful");
-
- 
-      window.location.reload();
+    // Navigate without reloading
+    switch (role) {
+      case "admin":
+        navigate("/admin-dashboard");
+        break;
+      case "doctor":
+        navigate("/doctor-dashboard");
+        break;
+      case "receptionist":
+        navigate("/receptionist-dashboard");
+        break;
+      case "patient":
+        navigate("/patient-dashboard");
+        break;
+      default:
+        console.error("Unknown role:", role);
     }
+
   } catch (error) {
-    if (error.response && error.response.data) {
-      setErrorMessage(error.response.data.message);
-      toast.error(error.response.data.message);
-    } else {
-      toast.error("An error occurred. Please try again later.");
-    }
+    const msg = error.response?.data?.message || "Login failed";
+    setErrorMessage(msg);
+    toast.error(msg);
   } finally {
     setIsLoading(false);
   }
 };
+
 
   return (
     <div className="flex items-center justify-center h-[80vh] md:w-full  ">

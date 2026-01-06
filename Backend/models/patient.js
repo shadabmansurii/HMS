@@ -84,10 +84,10 @@ const PatientSchema = new mongoose.Schema({
       notes: { type: String, trim: true },
     },
   ],
-  gender: {
-    type: String,
-    enum: ["male", "female", "other"],
-  },
+  // gender: {
+  //   type: String,
+  //   enum: ["male", "female", "other"],
+  // },
   dateOfBirth: {
     type: Date,
     validate: {

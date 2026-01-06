@@ -16,7 +16,7 @@ const SplashScreen = () => {
   }, []);
 
   // Split the text into individual letters
-  const text = "YASH TUPKAR";
+  const text = "SHADAB MANSURI";
   const letters = text.split("");
 
   return (

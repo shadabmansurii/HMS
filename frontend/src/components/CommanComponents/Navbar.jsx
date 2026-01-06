@@ -21,10 +21,7 @@ const Navbar = () => {
     patient: [
       { title: "Home", url: "/", icon: <AiOutlineHome /> },
       { title: "Find Doctors", url: "/all-doctors", icon: <FaStethoscope /> },
-    
 
-    
-    
       {
         title: "Dashboard",
         url: "/patient-dashboard",
@@ -58,7 +55,7 @@ const Navbar = () => {
     ],
   };
 
-    const { setActiveSection } = useActiveSection();
+  const { setActiveSection } = useActiveSection();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -66,7 +63,7 @@ const Navbar = () => {
   const [isMobileNavVisible, setMobileNavVisible] = useState(false);
   const [userRole, setUserRole] = useState(null); // User role state
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); 
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   useEffect(() => {
     const role = localStorage.getItem("role");
@@ -269,4 +266,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
