@@ -1,4 +1,3 @@
-
 const jwt = require("jsonwebtoken");
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -13,7 +12,7 @@ const authenticateToken = (req, res, next) => {
         .status(403)
         .json({ message: "Token expired. Please sign in again" });
     }
-    req.user = user; 
+    req.user = user;
     next();
   });
 };

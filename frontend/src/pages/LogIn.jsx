@@ -24,35 +24,33 @@ const LogIn = () => {
 
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
-  
 const handleSubmit = async (e) => {
   e.preventDefault();
   setIsLoading(true);
 
   try {
-<<<<<<< HEAD
-    const response = await axios.post("http://localhost:1000/api/v1/sign-in", {
-=======
-    const response = await axios.post(`${apiUrl}/api/v1/sign-in`, {
->>>>>>> 0acaa2cd95996365f59ff3c85851dd41705d77d5
-      usernameOremail,
-      password,
-    });
+    const response = await axios.post(
+      `${apiUrl}/api/v1/sign-in`,
+      {
+        usernameOremail,
+        password,
+      }
+    );
 
     const { token, role, id, username } = response.data;
 
-    // Save token and user info in localStorage
+    // Save to localStorage
     localStorage.setItem("token", token);
     localStorage.setItem("role", role);
     localStorage.setItem("userId", id);
     localStorage.setItem("username", username);
 
-    // Update Redux
+    // Redux login
     dispatch(authActions.login());
 
     toast.success("Login successful");
 
-    // Navigate without reloading
+    // Navigate by role
     switch (role) {
       case "admin":
         navigate("/admin-dashboard");
@@ -67,9 +65,8 @@ const handleSubmit = async (e) => {
         navigate("/patient-dashboard");
         break;
       default:
-        console.error("Unknown role:", role);
+        navigate("/");
     }
-
   } catch (error) {
     const msg = error.response?.data?.message || "Login failed";
     setErrorMessage(msg);
@@ -78,6 +75,7 @@ const handleSubmit = async (e) => {
     setIsLoading(false);
   }
 };
+
 
 
   return (
