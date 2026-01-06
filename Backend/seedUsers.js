@@ -53,7 +53,7 @@ async function seed() {
     await patient.save();
     console.log("Patient created");
 
-    console.log("All users seeded successfully!");
+    console.log("All users see -mded successfully!");
     process.exit();
   } catch (err) {
     console.error(err);
