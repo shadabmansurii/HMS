@@ -84,19 +84,23 @@ const PatientSchema = new mongoose.Schema({
       notes: { type: String, trim: true },
     },
   ],
+<<<<<<< HEAD
   // gender: {
   //   type: String,
   //   enum: ["male", "female", "other"],
   // },
+=======
+  gender: {
+    type: String,
+    enum: ["male", "female", "other"],
+  },
+  phone: {
+    type:String,
+  },
+>>>>>>> 0acaa2cd95996365f59ff3c85851dd41705d77d5
   dateOfBirth: {
     type: Date,
-    validate: {
-      validator: function (value) {
-        return value <= new Date();
-      },
-      message: "Date of birth must be a past date",
-    },
-  },
+   },
   profileImg: {
     type: String,
   },

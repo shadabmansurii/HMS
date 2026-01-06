@@ -11,6 +11,8 @@ import AppointmentsPage from "../components/patientsComponents/appointmentsPage"
 import BookAppointment from "../components/patientsComponents/BookAppointment";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { useActiveSection } from "../context/ActiveSectionContext";
+import Prescriptions from "../components/patientsComponents/Prescriptions";
+import { FaFilePrescription } from "react-icons/fa6";
 
 // Lazy loading components
 const Dashboard = lazy(() =>
@@ -27,12 +29,11 @@ const BedChecking = lazy(() =>
 );
 
 const PatientDashboard = () => {
-  const { activeSection, setActiveSection } = useActiveSection(); // Use global state
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
+  const { activeSection, setActiveSection } = useActiveSection(); 
+  
 
-  // const savedActiveSection = localStorage.getItem("activeSection");
-  // const [activeSection, setActiveSection] = useState(
-  //   savedActiveSection || "dashboard"
-  // );
+
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
     window.innerWidth < 768
   );
@@ -47,11 +48,13 @@ const PatientDashboard = () => {
     authorization: `Bearer ${localStorage.getItem("token")}`,
   };
 
+ 
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:1000/api/v1/get-user-information`,
+          `${apiUrl}/api/v1/get-user-information`,
           { headers }
         );
         setUser(response.data.data);
@@ -71,7 +74,8 @@ const PatientDashboard = () => {
         return <AppointmentsPage user={user} />;
       case "book-appointments":
         return <BookAppointment user={user} />;
-
+      case "prescriptions":
+        return <Prescriptions/>;
       case "check-bed-availability":
         return <BedChecking />;
       default:
@@ -90,6 +94,11 @@ const PatientDashboard = () => {
       label: "Book Appointments",
       icon: <FaRegCalendarCheck />,
       key: "book-appointments",
+    },
+    {
+      label: "Prescriptions",
+      icon: <FaFilePrescription />,
+      key: "prescriptions",
     },
     {
       label: "Check Beds Availability",
@@ -118,7 +127,7 @@ const PatientDashboard = () => {
               <div className="w-10 h-10 rounded overflow-hidden">
                 <Avatar
                   name={user?.name}
-                  src={`http://localhost:1000/uploads/${user?.profileImg}`}
+                  src={user?.profileImg}
                   size="40"
                   className="w-full h-full object-cover"
                 />

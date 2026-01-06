@@ -2,7 +2,10 @@ const { Server } = require("socket.io");
 
 const initializeSocketServer = (PORT) => {
   const io = new Server(PORT, {
-    cors: true,
+    cors: {
+      origin: ["http://localhost:3000", "https://medicare-hms.vercel.app"],
+      methods: ["GET", "POST"],
+    },
   });
 
   const emailToSocketIdMap = new Map();

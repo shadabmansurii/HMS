@@ -36,12 +36,25 @@ const [error, setError] = useState(null);
       });
   };
   
-    const handleFileUpload = (filePath) => {
-      setFormData({
-        ...formData,
-        profileImg: filePath,
-      });
-    };
+  //   const handleFileUpload = (filePath) => {
+  //     setFormData({
+  //       ...formData,
+  //       profileImg: filePath,
+  //     });
+  // };
+const handleFileUpload = (filePath) => {
+  console.log("Cloudinary URL:", filePath); // Check if the URL is logged
+  if (!filePath) {
+    console.error("No file URL received from Cloudinary.");
+    return;
+  }
+  setFormData((prevData) => ({
+    ...prevData,
+    profileImg: filePath,
+  }));
+};
+
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
     useEffect(() => {
       const fetchUser = async () => {
@@ -52,7 +65,7 @@ const [error, setError] = useState(null);
               authorization: `Bearer ${localStorage.getItem("token")}`,
             };
           const response = await axios.get(
-            `http://localhost:1000/api/v1/get-user-information`,
+            `${apiUrl}/api/v1/get-user-information`,
             { headers }
           );
           setFormData(response.data.data);
@@ -76,7 +89,7 @@ const [error, setError] = useState(null);
         authorization: `Bearer ${localStorage.getItem("token")}`,
       };
       await axios.put(
-        `http://localhost:1000/api/v1/update-patient/${formData._id}`,
+        `${apiUrl}/api/v1/update-patient/${formData._id}`,
         formData,
         { headers }
       );
@@ -90,6 +103,9 @@ const [error, setError] = useState(null);
       setLoading(false);
     }
   }
+
+
+
   const DOB = formData?.dateOfBirth ? formData.dateOfBirth.split("T")[0] : "N/A";
 
 
@@ -104,7 +120,7 @@ const [error, setError] = useState(null);
               <div className="w-96 h-[50vh] border-2 border-dashed rounded-xl border-gray-300  flex justify-center items-center cursor-pointer hover:bg-gray-100  transition p-4">
                 <div className="flex justify-center items-center w-full h-full">
                   <img
-                    src={`http://localhost:1000/uploads/${formData?.profileImg}`}
+                    src={formData?.profileImg}
                     alt={`${formData?.name}`}
                     className="object-contain w-full h-full"
                   />

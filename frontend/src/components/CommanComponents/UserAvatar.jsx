@@ -21,13 +21,14 @@ const UserProfile = () => {
     authorization: `Bearer ${localStorage.getItem("token")}`,
   };
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // useNavigate hook for navigation
+  const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:1000/api/v1/get-user-information`,
+          `${apiUrl}/api/v1/get-user-information`,
           { headers }
         );
         setUser(response.data.data);
@@ -41,43 +42,6 @@ const UserProfile = () => {
     fetchUser();
   }, []);
 
-// const handleLogout = async () => {
-//   try {
-//     const userId = localStorage.getItem("userId");
-//     console.log(userId);
-
-//     if (!userId) {
-//       throw new Error("User not logged in");
-//     }
-
-  
-
-//     localStorage.removeItem("authToken");
-//     localStorage.removeItem("userId");
-
-//     dispatch(authActions.logout());
-
-  
-//  try {
-//    const response = await axios.post("http://localhost:1000/api/v1/logout", {
-//      userId,
-//    });
-//    console.log(response.data);
-//  } catch (error) {
-//    console.error("Logout failed:", error);
- 
-//  }
-
-
-//     navigate("/");
-
- 
-//     toast.success("Logout successful");
-//   } catch (error) {
-//     console.error("Logout failed", error);
-//     toast.error("Logout failed. Please try again.");
-//   }
-  // };
   const handleLogout = async () => {
     try {
       const userId = localStorage.getItem("userId");
@@ -130,7 +94,7 @@ const UserProfile = () => {
         <div className="w-10 h-10 rounded overflow-hidden">
           <Avatar
             name={user?.name}
-            src={`http://localhost:1000/uploads/${user?.profileImg}`}
+            src={user?.profileImg}
             size="40"
             className=" object-cover"
           />
@@ -149,7 +113,7 @@ const UserProfile = () => {
       {/* Hover card */}
       {hover && (
         <div
-          className="absolute top-10 right-0 w-36 flex flex-col gap-1 bg-white shadow-lg rounded-md p-2 z-10"
+          className="absolute top-15 right-0 w-36 flex flex-col gap-1 bg-white shadow-lg rounded-md p-2 z-10"
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
           onClick={() => setHover(false)}
@@ -157,15 +121,15 @@ const UserProfile = () => {
         >
           <Link
             to="/profile"
-            className="text-sm font-medium w-full text-gray-700 cursor-pointer p-2 bg-gray-100 hover:bg-gray-200 rounded"
+            className="text-sm flex items-center justify-start font-medium w-full text-gray-600 cursor-pointer p-2  hover:bg-gray-100 rounded"
           >
-            View Profile
+            My Profile
           </Link>
           <button
             onClick={() => {
               handleLogout();
             }}
-            className="text-sm font-medium w-full text-gray-700 cursor-pointer p-2 bg-gray-100 hover:bg-gray-200 rounded"
+            className="text-sm font-medium w-full flex items-center justify-start text-gray-600 cursor-pointer p-2  hover:bg-gray-100 rounded"
           >
             Logout
           </button>
